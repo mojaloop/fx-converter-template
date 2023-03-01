@@ -1,4 +1,4 @@
-# FX Converter Template
+# [EXPERIMENTAL] FX Converter Template
 
 <!-- ACTION: REPLACE <repo-name> placeholders in this document -->
 [![Git Commit](https://img.shields.io/github/last-commit/mojaloop/<repo-name>.svg?style=flat)](https://github.com/mojaloop/<repo-name>/commits/master)
@@ -9,7 +9,7 @@
 
 [EXPERIMENTAL] A project template for FX conversion to be used between SDK and Core connectors.
 
-** This repository is still under development **
+`This repository is still under development`
 
 ## Contributing
 
