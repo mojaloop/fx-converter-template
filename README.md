@@ -1,11 +1,11 @@
 # [EXPERIMENTAL] FX Converter Template
 
-<!-- ACTION: REPLACE <repo-name> placeholders in this document -->
-[![Git Commit](https://img.shields.io/github/last-commit/mojaloop/<repo-name>.svg?style=flat)](https://github.com/mojaloop/<repo-name>/commits/master)
-[![Git Releases](https://img.shields.io/github/release/mojaloop/<repo-name>.svg?style=flat)](https://github.com/mojaloop/<repo-name>/releases)
-[![Npm Version](https://img.shields.io/npm/v/@mojaloop/<repo-name>.svg?style=flat)](https://www.npmjs.com/package/@mojaloop/<repo-name>)
-[![NPM Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/@mojaloop/<repo-name>.svg?style=flat)](https://www.npmjs.com/package/@mojaloop/<repo-name>)
-[![CircleCI](https://circleci.com/gh/mojaloop/<repo-name>.svg?style=svg)](https://circleci.com/gh/mojaloop/<repo-name>)
+<!-- ACTION: REPLACE fx-converter-template placeholders in this document -->
+[![Git Commit](https://img.shields.io/github/last-commit/mojaloop/fx-converter-template.svg?style=flat)](https://github.com/mojaloop/fx-converter-template/commits/master)
+[![Git Releases](https://img.shields.io/github/release/mojaloop/fx-converter-template.svg?style=flat)](https://github.com/mojaloop/fx-converter-template/releases)
+[![Npm Version](https://img.shields.io/npm/v/@mojaloop/fx-converter-template.svg?style=flat)](https://www.npmjs.com/package/@mojaloop/fx-converter-template)
+[![NPM Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/@mojaloop/fx-converter-template.svg?style=flat)](https://www.npmjs.com/package/@mojaloop/fx-converter-template)
+[![CircleCI](https://circleci.com/gh/mojaloop/fx-converter-template.svg?style=svg)](https://circleci.com/gh/mojaloop/fx-converter-template)
 
 [EXPERIMENTAL] A project template for FX conversion to be used between SDK and Core connectors.
 

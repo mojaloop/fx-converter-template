@@ -1,15 +1,15 @@
 {
-  "name": "@mojaloop/repo-name",
+  "name": "@mojaloop/fx-converter-template",
   "version": "0.1.0",
-  "description": "Typescript Mojaloop project template",
+  "description": "FX Converter template",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mojaloop/<repo-name>.git"
+    "url": "git+https://github.com/mojaloop/fx-converter-template.git"
   },
   "keywords": [
     "mojaloop",
     "services",
-    "<repo-name>"
+    "fx-converter-template"
   ],
   "author": "lewisdaly",
   "contributors": [
@@ -18,9 +18,9 @@
   ],
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/mojaloop/<repo-name>/issues"
+    "url": "https://github.com/mojaloop/fx-converter-template/issues"
   },
-  "homepage": "https://github.com/mojaloop/<repo-name>#readme",
+  "homepage": "https://github.com/mojaloop/fx-converter-template#readme",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
