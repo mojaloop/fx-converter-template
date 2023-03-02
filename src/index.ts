@@ -21,26 +21,11 @@
  --------------
  ******/
 
-import 'source-map-support/register'
-import { MathLib } from './lib/math'
+import BackendServer from './backend-server/server'
+// import SDKServer from './sdk-server/server'
+import Config from './shared/config'
 
-/* Instructions
- * 
- * 1. Choose one of the following styles below, either an APPLICATION or a LIBRARY
- * 2. Removed the application block and comments.
- * 
- */
-
-//* APPLICATION: {
-
-console.log(`1+1=${MathLib.add(1, 1)}`)
-
-console.log(`3x3=${MathLib.mul(3, 3)}`)
-
-//* }
-
-//* LIBRARY: {
-
-export default MathLib
-
-//* }
+// Setup & start API server
+BackendServer.run(Config)
+// NOTE: Currently SDK Server is not implemented. It is only required incase of inbound transfers.
+// SDKServer.run(Config)
