@@ -42,11 +42,12 @@
               "idType": "MSISDN",
               "idValue": "22556999125"
             },
-            "amountType": "SEND",
-            "currency": "USD",
-            "amount": "10",
+            "amountType": "RECEIVE",
+            "currency": "{$inputs.CURRENCY1}",
+            "amount": "{$inputs.AMOUNT1}",
             "transactionType": "TRANSFER",
-            "note": "string"
+            "note": "string",
+            "skipPartyLookup": true
           }
         }
       ]

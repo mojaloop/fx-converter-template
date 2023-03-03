@@ -4,6 +4,12 @@ import path from 'path'
 
 export { PACKAGE }
 
+export interface CurrencyConversionConfig {
+  conversions: {
+    srcCurrency: string
+    dstCurrency: string
+  }[]
+}
 // interface to represent service configuration
 export interface ServiceConfig {
   env: string
@@ -24,6 +30,7 @@ export interface ServiceConfig {
     backendUrl: string
     sdkUrl: string
   },
+  currencyConversion: CurrencyConversionConfig
   inspect: {
     depth: number
     showHidden: boolean
@@ -33,6 +40,19 @@ export interface ServiceConfig {
     thirdpartySdkEndpoint: string
   }
 }
+
+Convict.addFormat({
+  name: 'currency-conversion-array',
+  validate: function(conversions, schema) {
+    if (!Array.isArray(conversions)) {
+      throw new Error('must be of type Array');
+    }
+
+    for (const conversion of conversions) {
+      Convict(schema.children).load(conversion).validate();
+    }
+  }
+});
 
 // Declare configuration schema, default values and bindings to environment variables
 export const ConvictConfig = Convict<ServiceConfig>({
@@ -108,7 +128,25 @@ export const ConvictConfig = Convict<ServiceConfig>({
       default: 'http://localhost:4040/sdk-out',
       env: 'ENDPOINTS_SDK_URL'
     },
-
+  },
+  currencyConversion: {
+    conversions: {
+      doc: 'A collection of currency conversion entries.',
+      format: 'currency-conversion-array',
+      default: [],
+      children: {
+        srcCurrency: {
+          doc: 'The source currency',
+          format: '*',
+          default: null
+        },
+        dstCurrency: {
+          doc: 'The destination currency',
+          format: '*',
+          default: null
+        }
+      }
+    },
   },
   requestProcessingTimeoutSeconds: {
     doc: 'The timeout for waiting for a response to a request',
@@ -157,6 +195,7 @@ const config: ServiceConfig = {
   backendServer: ConvictConfig.get('backendServer'),
   sdkServer: ConvictConfig.get('sdkServer'),
   endpoints: ConvictConfig.get('endpoints'),
+  currencyConversion: ConvictConfig.get('currencyConversion'),
   requestProcessingTimeoutSeconds: ConvictConfig.get('requestProcessingTimeoutSeconds'),
   inspect: ConvictConfig.get('inspect'),
   shared: ConvictConfig.get('shared'),

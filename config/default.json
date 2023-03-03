@@ -1,5 +1,13 @@
 {
   "requestProcessingTimeoutSeconds": 30,
+  "currencyConversion": {
+    "conversions": [
+      {
+        "srcCurrency": "USD",
+        "dstCurrency": "MXN"
+      }
+    ]
+  },
   "inspect": {
     "depth": 4,
     "showHidden": false,

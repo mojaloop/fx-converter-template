@@ -1227,8 +1227,102 @@
       "method": null,
       "path": null,
       "params": {
+        "body": {
+          "from": {
+            "type": "CONSUMER",
+            "idType": "{$request.body.from.idType}",
+            "idValue": "{$request.body.from.idValue}",
+            "idSubValue": null,
+            "displayName": "Henrik Karlsson",
+            "firstName": "Henrik",
+            "middleName": "Johannes",
+            "lastName": "Karlsson",
+            "dateOfBirth": "1966-06-16",
+            "fspId": "senderfsp",
+            "merchantClassificationCode": null,
+            "extensionList": null
+          },
+          "to": {
+            "type": "CONSUMER",
+            "idType": "{$request.body.to.idType}",
+            "idValue": "{$request.body.to.idType}",
+            "idSubValue": null,
+            "displayName": "Gloria Gervitz",
+            "firstName": "Gloria",
+            "middleName": "J",
+            "lastName": "Gervitz",
+            "dateOfBirth": "1966-06-16",
+            "fspId": "recieverfsp",
+            "merchantClassificationCode": null,
+            "extensionList": null
+          },
+          "amountType": "{$request.body.amountType}",
+          "currency": "{$request.body.currency}",
+          "amount": "{$request.body.amount}",
+          "transactionType": "{$request.body.transactionType}",
+          "subScenario": null,
+          "note": "{$request.body.note}",
+          "currentState": "COMPLETED",
+          "quoteId": "b51ec534-ee48-4575-b6a9-ead2955b8069",
+          "getPartiesResponse": {
+            "body": {},
+            "headers": {}
+          },
+          "quoteResponse": {
+            "body": {
+              "transferAmount": {
+                "currency": "{$request.body.currency}",
+                "amount": "{$environment.quoteTransferAmount}"
+              },
+              "payeeReceiveAmount": {
+                "currency": "{$request.body.currency}",
+                "amount": "{$environment.quotePayeeReceiveAmount}"
+              },
+              "payeeFspFee": {
+                "currency": "{$request.body.currency}",
+                "amount": "{$environment.quotePayeeFspFee}"
+              },
+              "payeeFspCommission": {
+                "currency": "{$request.body.currency}",
+                "amount": "{$environment.quotePayeeFspCommission}"
+              },
+              "expiration": "2016-05-24T08:38:08.699-04:00",
+              "ilpPacket": "AYIBgQAAAAAAAASwNGxldmVsb25lLmRmc3AxLm1lci45T2RTOF81MDdqUUZERmZlakgyOVc4bXFmNEpLMHlGTFGCAUBQU0svMS4wCk5vbmNlOiB1SXlweUYzY3pYSXBFdzVVc05TYWh3CkVuY3J5cHRpb246IG5vbmUKUGF5bWVudC1JZDogMTMyMzZhM2ItOGZhOC00MTYzLTg0NDctNGMzZWQzZGE5OGE3CgpDb250ZW50LUxlbmd0aDogMTM1CkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb24vanNvbgpTZW5kZXItSWRlbnRpZmllcjogOTI4MDYzOTEKCiJ7XCJmZWVcIjowLFwidHJhbnNmZXJDb2RlXCI6XCJpbnZvaWNlXCIsXCJkZWJpdE5hbWVcIjpcImFsaWNlIGNvb3BlclwiLFwiY3JlZGl0TmFtZVwiOlwibWVyIGNoYW50XCIsXCJkZWJpdElkZW50aWZpZXJcIjpcIjkyODA2MzkxXCJ9IgA",
+              "condition": "string",
+              "geoCode": null,
+              "extensionList": null
+            },
+            "headers": {}
+          },
+          "quoteResponseSource": "string",
+          "fulfil": null,
+          "lastError": null,
+          "skipPartyLookup": true
+        },
+        "statusCode": "200",
         "scripts": {
-          "scriptingEngine": "postman"
+          "exec": [
+            "",
+            "const quoteBody = JSON.parse(request.body)",
+            "",
+            "const feePercent = 5",
+            "const commissionPercent = 2",
+            "const fee = Math.round(Number(quoteBody.amount) *  feePercent / 100)",
+            "const commission = Math.round(Number(quoteBody.amount) *  commissionPercent / 100)",
+            "",
+            "environment.quoteTransferAmount = quoteBody.amount",
+            "environment.quotePayeeFspFee = fee",
+            "environment.quotePayeeFspCommission = commission",
+            "environment.quotePayeeReceiveAmount = quoteBody.amount",
+            "if (quoteBody.amountType === 'RECEIVE') {",
+            "  environment.quoteTransferAmount = (+quoteBody.amount) + fee - commission",
+            "}",
+            "if (quoteBody.amountType === 'SEND') {",
+            "  environment.quotePayeeReceiveAmount = (+quoteBody.amount) - fee + commission",
+            "}",
+            "environment.quoteExpiration =new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString()"
+          ],
+          "scriptingEngine": "javascript"
         }
       },
       "type": "MOCK_RESPONSE"
