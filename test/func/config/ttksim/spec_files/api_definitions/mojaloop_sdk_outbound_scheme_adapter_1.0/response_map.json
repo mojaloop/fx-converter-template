@@ -26,5 +26,15 @@
         }
       }
     }
+  },
+  "/transfers/{transferId}": {
+    "put": {
+      "response": {
+        "bodyOverride": {
+          "acceptQuote": "{$request.body.acceptQuote}"
+        }
+      }
+    }
   }
 }
+

@@ -468,6 +468,7 @@ paths:
       summary: >-
         Continues a transfer that has paused at the quote stage in order to
         accept or reject payee party and/or quote
+      operationId: putTransfersById
       description: >
         The HTTP request `PUT /transfers/{transferId}` is used to continue a
         transfer initiated via the `POST /transfers` method that has halted

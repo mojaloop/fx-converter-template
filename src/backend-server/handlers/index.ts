@@ -5,5 +5,6 @@ import Parties from './parties'
 export default {
   HealthGet: SharedHandlers.HealthGet,
   PartiesByTypeAndID: Parties.PartiesByTypeAndID,
-  PostTransfers: Transfers.PostTransfers
+  PostTransfers: Transfers.PostTransfers,
+  PutTransfersById: Transfers.PutTransfersById
 }

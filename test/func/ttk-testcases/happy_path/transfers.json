@@ -1,16 +1,8 @@
 {
-  "options": {},
-  "name": "multi",
   "test_cases": [
     {
       "id": 1,
       "name": "Transfer",
-      "fileInfo": {
-        "path": "happy_path/transfers.json"
-      },
-      "meta": {
-        "info": "Transfer"
-      },
       "requests": [
         {
           "id": 1,
@@ -48,9 +40,75 @@
             "transactionType": "TRANSFER",
             "note": "string",
             "skipPartyLookup": true
+          },
+          "tests": {
+            "assertions": [
+              {
+                "id": 1,
+                "description": "Status code is 200",
+                "exec": [
+                  "expect(response.status).equals(200)"
+                ]
+              },
+              {
+                "id": 2,
+                "description": "Currency in response body is MXN (request currency)",
+                "exec": [
+                  "expect(response.body.currency).equals('MXN')"
+                ]
+              },
+              {
+                "id": 3,
+                "description": "Currency in the quote response is USD",
+                "exec": [
+                  "expect(response.body.quoteResponse.body.transferAmount.currency).equals('USD')"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 2,
+          "description": "Accept Quote",
+          "apiVersion": {
+            "minorVersion": 0,
+            "majorVersion": 1,
+            "type": "scheme_adapter_outbound",
+            "asynchronous": true,
+            "prefix": "/sdk-out",
+            "hostnames": [],
+            "specFile": "spec_files/api_definitions/mojaloop_sdk_outbound_scheme_adapter_1.0/api_spec.yaml",
+            "callbackMapFile": "spec_files/api_definitions/mojaloop_sdk_outbound_scheme_adapter_1.0/callback_map.json",
+            "responseMapFile": "spec_files/api_definitions/mojaloop_sdk_outbound_scheme_adapter_1.0/response_map.json",
+            "jsfRefFile": "spec_files/api_definitions/mojaloop_sdk_outbound_scheme_adapter_1.0/mockRef.json",
+            "triggerTemplatesFolder": "spec_files/api_definitions/mojaloop_sdk_outbound_scheme_adapter_1.0/trigger_templates"
+          },
+          "operationPath": "/transfers/{transferId}",
+          "path": "/transfers/{$prev.1.response.body.transferId}",
+          "method": "put",
+          "params": {
+            "transferId": "{$prev.1.response.body.transferId}"
+          },
+          "url": "{$inputs.BACKEND_ENDPOINT}",
+          "body": {
+            "acceptQuote": true
+          },
+          "tests": {
+            "assertions": [
+              {
+                "id": 1,
+                "description": "Status code is 200",
+                "exec": [
+                  "expect(response.status).equals(200)"
+                ]
+              }
+            ]
           }
         }
-      ]
+      ],
+      "fileInfo": {
+        "path": "happy_path/transfers.json"
+      }
     }
   ]
 }
