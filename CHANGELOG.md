@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/mojaloop/fx-converter-template/compare/v0.1.1...v0.1.2) (2023-03-03)
+
+
+### Bug Fixes
+
+* cicd publish ([3b33e9d](https://github.com/mojaloop/fx-converter-template/commit/3b33e9d16132a4c36752c9c75e94ebdba3dc94a6))
+* cicd publish ([864fdd0](https://github.com/mojaloop/fx-converter-template/commit/864fdd08a458bf9e16e562f5ddfb0e37655ada45))
+
 ### 0.1.1 (2023-03-03)
 
 
