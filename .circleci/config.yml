@@ -152,10 +152,23 @@ jobs:
           name: Load the pre-built docker local image from workspace
           command: docker load -i /tmp/docker-image-local.tar
       - run:
-          name: Execute TTK functional tests
+          name: Start docker-compose for this service and TTK
           command: |
             cd test/func
-            docker-compose up --exit-code-from=test-service
+            docker-compose up -d
+      - run:
+          name: Wait for some time
+          command: |
+            sleep 10
+      - run:
+          name: Execute Functional Tests
+          command: |
+            cd test/func
+            docker-compose -f ./ttk-tests-docker-compose.yml up --abort-on-container-exit
+            docker compose down
+      - store_artifacts:
+          path: ./test/func/reports
+          prefix: test
 
   test-dependencies:
     executor: default-docker
