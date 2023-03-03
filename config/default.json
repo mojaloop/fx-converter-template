@@ -1,5 +1,21 @@
 {
   "requestProcessingTimeoutSeconds": 30,
+  "backendServer": {
+    "host": "0.0.0.0",
+    "port": 4001,
+    "corsWhiteList": ["*"],
+    "allowCredentials": false
+  },
+  "sdkServer": {
+    "host": "0.0.0.0",
+    "port": 3003,
+    "corsWhiteList": ["*"],
+    "allowCredentials": false
+  },
+  "endpoints": {
+    "backendUrl": "http://localhost:3003",
+    "sdkUrl": "http://localhost:4040/sdk-out"
+  },
   "currencyConversion": {
     "conversions": [
       {

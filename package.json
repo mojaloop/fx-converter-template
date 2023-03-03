@@ -30,7 +30,8 @@
     "node": "=16.x"
   },
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "",
+    "prepare_DELETED": "husky install",
     "pretest": "npm run build",
     "prepublishOnly": "npm run build",
     "standard": "echo '\\033[1;33m  This project uses eslint instead of standard. Use `npm run lint` instead.'",

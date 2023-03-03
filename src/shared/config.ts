@@ -118,14 +118,13 @@ export const ConvictConfig = Convict<ServiceConfig>({
     backendUrl: {
       doc: 'The endpoint of Backend',
       format: '*',
-      default: 'http://backend',
+      default: 'http://localhost:3003',
       env: 'ENDPOINTS_BACKEND_URL'
     },
     sdkUrl: {
       doc: 'The endpoint for sdk',
       format: '*',
-      // TODO: Change the default value
-      default: 'http://localhost:4040/sdk-out',
+      default: 'http://localhost:4001',
       env: 'ENDPOINTS_SDK_URL'
     },
   },

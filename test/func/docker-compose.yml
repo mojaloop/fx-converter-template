@@ -5,6 +5,17 @@ networks:
 
 services:
 
+  fx-converter:
+    image: fx-converter:local
+    build:
+      context: ../..
+    networks:
+        - mojaloop-net
+    environment:
+      - ENDPOINTS_SDK_URL=http://ttksim:4040/sdk-out
+    ports:
+      - "4001:4001"
+
   ttksim:
     networks:
         - mojaloop-net
