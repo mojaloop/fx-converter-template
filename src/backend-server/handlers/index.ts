@@ -1,7 +1,9 @@
 import SharedHandlers from '../../shared/handlers'
 import Transfers from './transfers'
+import Parties from './parties'
 
 export default {
   HealthGet: SharedHandlers.HealthGet,
-  PostTransfers: Transfers.post
+  PartiesByTypeAndID: Parties.PartiesByTypeAndID,
+  PostTransfers: Transfers.PostTransfers
 }

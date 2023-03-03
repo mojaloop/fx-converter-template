@@ -1,0 +1,12 @@
+{
+  "order": [
+    {
+      "name": "health.json",
+      "type": "file"
+    },
+    {
+      "name": "parties.json",
+      "type": "file"
+    }
+  ]
+}

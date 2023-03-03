@@ -34,6 +34,45 @@ paths:
           description: >-
             Returns empty body if the scheme adapter outbound transfers service
             is running.
+  '/parties/{Type}/{ID}':
+    parameters:
+      - $ref: '#/components/parameters/Type'
+      - $ref: '#/components/parameters/ID'
+    get:
+      description: >-
+        The HTTP request GET /parties// (or GET /parties///) is used to lookup
+        information regarding the requested Party, defined by ,  and optionally
+        (for example, GET /parties/MSISDN/123456789, or GET
+        /parties/BUSINESS/shoecompany/employee1).
+      summary: PartiesByTypeAndID
+      tags:
+        - parties
+      operationId: PartiesByTypeAndID
+      responses:
+        '200':
+          $ref: '#/components/responses/partiesByIdSuccess'
+        '404':
+          $ref: '#/components/responses/partiesByIdError404'
+  '/parties/{Type}/{ID}/{SubId}':
+    parameters:
+      - $ref: '#/components/parameters/Type'
+      - $ref: '#/components/parameters/ID'
+      - $ref: '#/components/parameters/SubId'
+    get:
+      description: >-
+        The HTTP request GET /parties// (or GET /parties///) is used to lookup
+        information regarding the requested Party, defined by ,  and optionally
+        (for example, GET /parties/MSISDN/123456789, or GET
+        /parties/BUSINESS/shoecompany/employee1).
+      summary: PartiesSubIdByTypeAndID
+      tags:
+        - parties
+      operationId: PartiesSubIdByTypeAndID
+      responses:
+        '200':
+          $ref: '#/components/responses/partiesByIdSuccess'
+        '404':
+          $ref: '#/components/responses/partiesByIdError404'
   /transfers:
     post:
       summary: Sends money from one account to another
@@ -393,45 +432,6 @@ paths:
   #         $ref: '#/components/responses/accountsCreationError'
   #       '504':
   #         $ref: '#/components/responses/accountsCreationTimeout'
-  # '/parties/{Type}/{ID}':
-  #   parameters:
-  #     - $ref: '#/components/parameters/Type'
-  #     - $ref: '#/components/parameters/ID'
-  #   get:
-  #     description: >-
-  #       The HTTP request GET /parties// (or GET /parties///) is used to lookup
-  #       information regarding the requested Party, defined by ,  and optionally
-  #       (for example, GET /parties/MSISDN/123456789, or GET
-  #       /parties/BUSINESS/shoecompany/employee1).
-  #     summary: PartiesByTypeAndID
-  #     tags:
-  #       - parties
-  #     operationId: PartiesByTypeAndID
-  #     responses:
-  #       '200':
-  #         $ref: '#/components/responses/partiesByIdSuccess'
-  #       '404':
-  #         $ref: '#/components/responses/partiesByIdError404'
-  # '/parties/{Type}/{ID}/{SubId}':
-  #   parameters:
-  #     - $ref: '#/components/parameters/Type'
-  #     - $ref: '#/components/parameters/ID'
-  #     - $ref: '#/components/parameters/SubId'
-  #   get:
-  #     description: >-
-  #       The HTTP request GET /parties// (or GET /parties///) is used to lookup
-  #       information regarding the requested Party, defined by ,  and optionally
-  #       (for example, GET /parties/MSISDN/123456789, or GET
-  #       /parties/BUSINESS/shoecompany/employee1).
-  #     summary: PartiesSubIdByTypeAndID
-  #     tags:
-  #       - parties
-  #     operationId: PartiesSubIdByTypeAndID
-  #     responses:
-  #       '200':
-  #         $ref: '#/components/responses/partiesByIdSuccess'
-  #       '404':
-  #         $ref: '#/components/responses/partiesByIdError404'
   # /quotes:
   #   post:
   #     summary: Quotes endpoint

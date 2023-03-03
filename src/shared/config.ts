@@ -20,6 +20,10 @@ export interface ServiceConfig {
     corsWhiteList: string[]
     allowCredentials: boolean
   },
+  endpoints: {
+    backendUrl: string
+    sdkUrl: string
+  },
   inspect: {
     depth: number
     showHidden: boolean
@@ -90,6 +94,22 @@ export const ConvictConfig = Convict<ServiceConfig>({
       env: 'SDK_SERVER_ALLOW_CREDENTIALS'
     },
   },
+  endpoints: {
+    backendUrl: {
+      doc: 'The endpoint of Backend',
+      format: '*',
+      default: 'http://backend',
+      env: 'ENDPOINTS_BACKEND_URL'
+    },
+    sdkUrl: {
+      doc: 'The endpoint for sdk',
+      format: '*',
+      // TODO: Change the default value
+      default: 'http://localhost:4040/sdk-out',
+      env: 'ENDPOINTS_SDK_URL'
+    },
+
+  },
   requestProcessingTimeoutSeconds: {
     doc: 'The timeout for waiting for a response to a request',
     env: 'REQUEST_PROCESSING_TIMEOUT_SECONDS',
@@ -136,6 +156,7 @@ const config: ServiceConfig = {
   env: ConvictConfig.get('env'),
   backendServer: ConvictConfig.get('backendServer'),
   sdkServer: ConvictConfig.get('sdkServer'),
+  endpoints: ConvictConfig.get('endpoints'),
   requestProcessingTimeoutSeconds: ConvictConfig.get('requestProcessingTimeoutSeconds'),
   inspect: ConvictConfig.get('inspect'),
   shared: ConvictConfig.get('shared'),

@@ -43,6 +43,7 @@ async function _create (config: ServiceConfig): Promise<Hapi.Server> {
       }
     }
   })
+  server.bind({ serviceConfig: config })
   return server
 }
 
