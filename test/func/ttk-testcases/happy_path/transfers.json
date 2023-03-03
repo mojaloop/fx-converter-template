@@ -32,7 +32,8 @@
             },
             "to": {
               "idType": "MSISDN",
-              "idValue": "22556999125"
+              "idValue": "22556999125",
+              "fspId": "receiverfsp"
             },
             "amountType": "RECEIVE",
             "currency": "{$inputs.CURRENCY1}",

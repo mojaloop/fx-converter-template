@@ -3,7 +3,8 @@ import Logger from '@mojaloop/central-services-logger'
 import { Request, ResponseObject } from '@hapi/hapi'
 import axios from 'axios'
 import { StateResponseToolkit } from '../../shared/plugins/state'
-import { convertCurrency } from '../../domain/fx'
+import { convertCurrency, getFXRate } from '../../domain/fx'
+import { CurrencyConversionConfig } from '../../shared/config'
 
 async function PostTransfers(_context: unknown, _request: Request, h: StateResponseToolkit): Promise<ResponseObject>  {
   try {
@@ -11,10 +12,20 @@ async function PostTransfers(_context: unknown, _request: Request, h: StateRespo
     // TODO: optimize the following deep copy function
     const reqBody = JSON.parse(JSON.stringify(_request.payload))
 
+    // Check if the source currency is in the list
+    const conversion = (h.context.serviceConfig.currencyConversion as CurrencyConversionConfig).conversions.find(conversion => conversion.srcCurrency === reqBody.currency)
+    let convRate = 1
     // Modify the body here based on the FX rules
-    const convResult  = await convertCurrency(reqBody.currency, reqBody.amount, h.context.serviceConfig.currencyConversion)
-    reqBody.currency = convResult.currency
-    reqBody.amount = convResult.amount
+    // const convResult  = await convertCurrency(reqBody.currency, reqBody.amount, h.context.serviceConfig.currencyConversion)
+    if (conversion) {
+      const fetchedConvRate = await getFXRate(conversion.srcCurrency, conversion.dstCurrency)
+      if (fetchedConvRate) {
+        convRate = fetchedConvRate
+        const calculatedAmount = Math.round(Number(reqBody.amount) * convRate)
+        reqBody.currency = conversion.dstCurrency
+        reqBody.amount = calculatedAmount + ''
+      }
+    }
 
     const headers = { ..._request.headers }
     // Delete the content-length header from inbound request so that it will be calculated again based on the payload
@@ -27,12 +38,15 @@ async function PostTransfers(_context: unknown, _request: Request, h: StateRespo
         headers,
       },
     );
-    // Modify the response data here based on the FX rules
-    const reverseDirection = true
-    const transferAmount = data.quoteResponse.body.transferAmount
-    const convResult2  = await convertCurrency(transferAmount.currency, transferAmount.amount, h.context.serviceConfig.currencyConversion, reverseDirection)
-    transferAmount.currency = convResult2.currency
-    transferAmount.amount = convResult2.amount
+    // Modify the response data here based on the FX rules - reverse currency conversion
+    if (conversion) {
+      const transferAmount = data.quoteResponse.body.transferAmount
+      const calculatedAmount = Math.round(Number(transferAmount.amount) / convRate)
+      transferAmount.currency = conversion.srcCurrency
+      transferAmount.amount = calculatedAmount + ''
+
+      // TODO: Add conversion rate to a custom header in the response
+    }
 
     return h.response(data).code(status)
   } catch (error) {

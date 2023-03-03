@@ -4,11 +4,13 @@ import path from 'path'
 
 export { PACKAGE }
 
+export interface CurrencyConversionListItem {
+  srcCurrency: string
+  dstCurrency: string
+}
+
 export interface CurrencyConversionConfig {
-  conversions: {
-    srcCurrency: string
-    dstCurrency: string
-  }[]
+  conversions: CurrencyConversionListItem[]
 }
 // interface to represent service configuration
 export interface ServiceConfig {
