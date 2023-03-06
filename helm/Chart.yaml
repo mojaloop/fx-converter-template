@@ -1,0 +1,18 @@
+apiVersion: v2
+description: FX Converter in PM4ML Helm chart for Kubernetes
+name: fx-converter-api-svc
+version: 0.0.1
+appVersion: "0.1.3"
+home: http://mojaloop.io
+icon: http://mojaloop.io/images/logo.png
+sources:
+  - https://github.com/mojaloop/fx-converter-template
+maintainers:
+  - name: Vijaya Kumar Guthi
+    email: vijaya.guthi@modusbox.com
+dependencies:
+  - name: common
+    repository: "https://docs.mojaloop.io/charts/repo"
+    tags:
+      - moja-common
+    version: 2.0.0
