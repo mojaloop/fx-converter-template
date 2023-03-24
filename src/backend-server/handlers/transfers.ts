@@ -40,12 +40,14 @@ async function PostTransfers(_context: unknown, _request: Request, h: StateRespo
     );
     // Modify the response data here based on the FX rules - reverse currency conversion
     if (conversion) {
-      const transferAmount = data.quoteResponse.body.transferAmount
-      const calculatedAmount = Math.round(Number(transferAmount.amount) / convRate)
-      transferAmount.currency = conversion.srcCurrency
-      transferAmount.amount = calculatedAmount + ''
-
-      // TODO: Add conversion rate to a custom header in the response
+      if (data.quoteResponse && data.quoteResponse.body && data.quoteResponse.body.transferAmount) {
+        const transferAmount = data.quoteResponse.body.transferAmount
+        const calculatedAmount = Math.round(Number(transferAmount.amount) / convRate)
+        transferAmount.currency = conversion.srcCurrency
+        transferAmount.amount = calculatedAmount + ''
+  
+        // TODO: Add conversion rate to a custom header in the response
+      }
     }
 
     return h.response(data).code(status)
