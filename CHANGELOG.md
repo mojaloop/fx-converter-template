@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/mojaloop/fx-converter-template/compare/v0.1.3...v0.1.4) (2023-03-24)
+
+
+### Features
+
+* added helm chart ([d5449c2](https://github.com/mojaloop/fx-converter-template/commit/d5449c2f5b7e444da9023bae6cc9906f0cc28abc))
+
+
+### Bug Fixes
+
+* issue with post transfers response without quote response ([6d62353](https://github.com/mojaloop/fx-converter-template/commit/6d6235328be7066f99f7e12794ca94d690ef5d32))
+* issue with put transfers response conversion ([fd8830b](https://github.com/mojaloop/fx-converter-template/commit/fd8830b0329b1b53736c848fc8c52f4b18c8c09b))
+
+
+### Chore
+
+* dep updates ([6283b14](https://github.com/mojaloop/fx-converter-template/commit/6283b14a6a98d72b83573c0337992477cdb71329))
+
 ### [0.1.3](https://github.com/mojaloop/fx-converter-template/compare/v0.1.2...v0.1.3) (2023-03-03)
 
 
