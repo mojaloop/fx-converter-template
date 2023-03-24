@@ -80,6 +80,22 @@ async function PutTransfersById(_context: unknown, _request: Request, h: StateRe
       },
     );
 
+    if (data.quoteResponse && data.quoteResponse.body && data.quoteResponse.body.transferAmount) {
+      const transferAmount = data.quoteResponse.body.transferAmount
+      // Check if the target currency is in the list
+      const conversion = (h.context.serviceConfig.currencyConversion as CurrencyConversionConfig).conversions.find(conversion => conversion.dstCurrency === transferAmount.currency)
+      // Modify the body here based on the FX rules
+      if (conversion) {
+        const fetchedConvRate = await getFXRate(conversion.dstCurrency, conversion.srcCurrency)
+        if (fetchedConvRate) {
+          const calculatedAmount = Math.round(Number(transferAmount.amount) * fetchedConvRate)
+          transferAmount.currency = conversion.srcCurrency
+          transferAmount.amount = calculatedAmount + ''
+        }
+      }
+      // TODO: Add conversion rate to a custom header in the response
+    }
+
     return h.response(data).code(status)
   } catch (error) {
     if (axios.isAxiosError(error)) {
